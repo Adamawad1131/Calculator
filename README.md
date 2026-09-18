@@ -1,2 +1,2 @@
 # Calculator
-an calculator that scientific 
+scientific calculator
