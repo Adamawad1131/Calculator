@@ -1,1 +1,214 @@
+:root[data-theme="dark"] {
+    --bg-color: #0f172a;
+    --calc-bg: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --btn-num: #334155;
+    --btn-func: #475569;
+    --btn-op: #0284c7;
+    --btn-action: #10b981;
+    --btn-danger: #ef4444;
+    --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
 
+:root[data-theme="light"] {
+    --bg-color: #f1f5f9;
+    --calc-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --btn-num: #e2e8f0;
+    --btn-func: #cbd5e1;
+    --btn-op: #38bdf8;
+    --btn-action: #34d399;
+    --btn-danger: #f87171;
+    --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="midnight"] {
+    --bg-color: #000000;
+    --calc-bg: #111111;
+    --text-primary: #00ffcc;
+    --text-secondary: #008877;
+    --btn-num: #1a1a1a;
+    --btn-func: #262626;
+    --btn-op: #005577;
+    --btn-action: #00aa66;
+    --btn-danger: #aa0033;
+    --shadow: 0 0 30px rgba(0, 255, 204, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.calculator-container {
+    background-color: var(--calc-bg);
+    width: 380px;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.mode-indicator {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.theme-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.theme-btn {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+.theme-btn:nth-child(1) { background: #0f172a; border: 1px solid #0284c7; }
+.theme-btn:nth-child(2) { background: #f1f5f9; border: 1px solid #64748b; }
+.theme-btn:nth-child(3) { background: #000000; border: 1px solid #00ffcc; }
+
+.history-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.display {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: right;
+    margin-bottom: 20px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.history-expression {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    min-height: 1.2rem;
+    word-break: break-all;
+}
+
+.main-input {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    word-break: break-all;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.btn {
+    border: none;
+    padding: 14px 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-primary);
+    user-select: none;
+    transition: transform 0.05s ease, filter 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.93);
+}
+
+.btn.num { background-color: var(--btn-num); }
+.btn.func { background-color: var(--btn-func); font-size: 0.85rem; }
+.btn.operator { background-color: var(--btn-op); color: white; }
+.btn.action { background-color: var(--btn-action); color: white; }
+.btn.danger { background-color: var(--btn-danger); color: white; }
+.span-2 { grid-column: span 2; }
+
+/* Slide-out History Panel */
+.history-panel {
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--calc-bg);
+    border-radius: 24px;
+    padding: 20px;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-border-box;
+}
+
+.history-panel.open {
+    right: 0;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-primary);
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.clear-hist-btn {
+    background: var(--btn-danger);
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#history-list {
+    list-style: none;
+    overflow-y: auto;
+    flex: 1;
+}
+
+#history-list li {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    cursor: pointer;
+    text-align: right;
+}
+
+#history-list li:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
