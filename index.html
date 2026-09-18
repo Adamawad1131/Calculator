@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <div class="calculator-container">
+        <!-- Top Toolbar -->
+        <div class="toolbar">
+            <div class="mode-indicator" id="angle-mode">DEG</div>
+            <div class="theme-selector">
+                <button class="theme-btn active" onclick="setTheme('dark')" title="Neon Dark"></button>
+                <button class="theme-btn" onclick="setTheme('light')" title="Clean Light"></button>
+                <button class="theme-btn" onclick="setTheme('midnight')" title="OLED Midnight"></button>
+            </div>
+            <button class="history-toggle" onclick="toggleHistory()">📜</button>
+        </div>
+
+        <!-- Display Area -->
+        <div class="display">
+            <div class="history-expression" id="history-expr"></div>
+            <div class="main-input" id="display">0</div>
+        </div>
+
+        <!-- Keypad -->
+        <div class="keypad">
+            <!-- Row 1: Scientific -->
+            <button class="btn func" onclick="toggleAngleMode()">DEG/RAD</button>
+            <button class="btn func" onclick="appendFunc('sin(')">sin</button>
+            <button class="btn func" onclick="appendFunc('cos(')">cos</button>
+            <button class="btn func" onclick="appendFunc('tan(')">tan</button>
+            <button class="btn danger" onclick="clearDisplay()">AC</button>
+
+            <!-- Row 2: Scientific -->
+            <button class="btn func" onclick="appendFunc('log(')">log</button>
+            <button class="btn func" onclick="appendFunc('ln(')">ln</button>
+            <button class="btn func" onclick="appendFunc('sqrt(')">√</button>
+            <button class="btn func" onclick="appendValue('^')">x^y</button>
+            <button class="btn danger" onclick="deleteChar()">DEL</button>
+
+            <!-- Row 3: Constants & Brackets -->
+            <button class="btn func" onclick="appendValue('π')">π</button>
+            <button class="btn func" onclick="appendValue('e')">e</button>
+
+            <button class="btn func" onclick="appendValue('(')">(</button>
+            <button class="btn func" onclick="appendValue(')')">)</button>
+            <button class="btn operator" onclick="appendValue('/')">÷</button>
+
+            <!-- Row 4: Numbers -->
+            <button class="btn func" onclick="appendValue('!')">x!</button>
+            <button class="btn num" onclick="appendValue('7')">7</button>
+            <button class="btn num" onclick="appendValue('8')">8</button>
+            <button class="btn num" onclick="appendValue('9')">9</button>
+            <button class="btn operator" onclick="appendValue('*')">×</button>
+
+            <!-- Row 5: Numbers -->
+            <button class="btn func" onclick="appendFunc('1/(')">1/x</button>
+            <button class="btn num" onclick="appendValue('4')">4</button>
+            <button class="btn num" onclick="appendValue('5')">5</button>
+            <button class="btn num" onclick="appendValue('6')">6</button>
+            <button class="btn operator" onclick="appendValue('-')">-</button>
+
+            <!-- Row 6: Numbers -->
+            <button class="btn func" onclick="appendValue('%')">%</button>
+            <button class="btn num" onclick="appendValue('1')">1</button>
+            <button class="btn num" onclick="appendValue('2')">2</button>
+            <button class="btn num" onclick="appendValue('3')">3</button>
+            <button class="btn operator" onclick="appendValue('+')">+</button>
+
+            <!-- Row 7: Bottom -->
+            <button class="btn func" onclick="appendFunc('abs(')">|x|</button>
+            <button class="btn num" onclick="appendValue('0')">0</button>
+            <button class="btn num" onclick="appendValue('.')">.</button>
+            <button class="btn action span-2" onclick="calculate()">=</button>
+        </div>
+
+        <!-- Slide-out History Panel -->
+        <div class="history-panel" id="history-panel">
+            <div class="history-header">
+                <span>Calculation History</span>
+                <button onclick="clearHistoryLog()" class="clear-hist-btn">Clear</button>
+            </div>
+            <ul id="history-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
